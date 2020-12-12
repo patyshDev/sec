@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,8 @@ public class User implements UserDetails {
 
     public User() {
     }
+
+
 
     public User(Long id, String name, String surname, String department, int salary,
                 String username, String password, Set<Role> roles) {

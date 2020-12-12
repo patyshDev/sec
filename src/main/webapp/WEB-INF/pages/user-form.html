@@ -18,12 +18,37 @@
                     <td><input type="text" name="surname"/></td>
                 </tr>
                 <tr>
+                    <td>Username</td>
+                    <td><input type="text" name="username"/></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="text" name="password"/></td>
+                </tr>
+                <tr>
                     <td>Department</td>
                     <td><input type="text" name="department"/></td>
                 </tr>
                 <tr>
                     <td>Salary</td>
                     <td><input type="text" name="salary"/></td>
+                </tr>
+                <tr>
+                    <td>Role</td>
+                    <td>
+                        <th:block >
+                            <input type="checkbox" name="newRole" th:value="ROLE_ADMIN"/>
+                            <label th:text="ADMIN"></label>
+                            <input type="checkbox" name="newRole" th:value="ROLE_USER"/>
+                            <label th:text="USER"></label>
+                            <input type="checkbox" name="newRole" th:value="ROLE_HR"/>
+                            <label th:text="HR"></label>
+                            <input type="checkbox" name="newRole" th:value="ROLE_SALES"/>
+                            <label th:text="SALES"></label>
+                            <input type="checkbox" name="newRole" th:value="ROLE_IT"/>
+                            <label th:text="IT"></label>
+                        </th:block>
+                    </td>
                 </tr>
             </table>
             <br/>

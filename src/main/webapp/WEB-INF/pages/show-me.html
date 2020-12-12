@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>HELLO, USER</title>
@@ -25,6 +25,7 @@
     <div align="center">
         <h3>HELLO, mr  <a th:text="${oneUser.name}">name</a></h3>
         <h3>INFO ABOUT U</h3>
+        <form th:action="@{/user/{id} (id=*{id})}" th:object="${oneUser}" method="post">
         <table border="1">
             <tr>
                 <th>name</th>
@@ -48,10 +49,17 @@
                 </td>
             </tr>
         </table>
+        </form>
         <br>
         <form action="/logout" method="post">
             <input type="submit" value="Logout">
         </form>
+        <br><br>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <form action="/admin" method="get">
+                <input type="submit" value="ADMIN PAGE">
+            </form>
+        </div>
     </div>
 </body>
 </html>

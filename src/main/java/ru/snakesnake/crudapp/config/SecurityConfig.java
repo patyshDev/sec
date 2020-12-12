@@ -47,15 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/login").not().fullyAuthenticated()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/user/").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-                .antMatchers("/welcome/").access("hasAnyRole('ROLE_ADMIN', 'ROLE_HR', 'ROLE_SALES', 'ROLE_IT')")
-                .anyRequest().authenticated()
+                .antMatchers("/user/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+                .anyRequest().not().access("hasRole('ROLE_USER')")
                 .and()
                 .formLogin()
                 .successHandler(loginSuccessHandler);
         http.logout()
                 .permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/login");
     }
 }
