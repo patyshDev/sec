@@ -31,18 +31,15 @@ public class AdminController {
     }
 
     @GetMapping("/add")
-    public String getUserForm() {
+    public String getUserForm(Model model) {
+        model.addAttribute("listRole", roleService.listRoles());
         return "user-form";
     }
 
     @PostMapping("/add")
     public String addUser(@ModelAttribute("addUser") User user,
                           @RequestParam(value = "newRole", required = false) String[] role) {
-        Set<Role> roleSet = new HashSet<>();
-        for (int i = 0; i < role.length; i++) {
-            roleSet.add(roleService.getRoleByName(role[i]));
-        }
-        user.setRoles(roleSet);
+        user.setRoles(getAddRole(role));
         userService.addUser(user);
         return "redirect:/admin";
     }
@@ -50,17 +47,14 @@ public class AdminController {
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable("id") long id, Model model) {
         model.addAttribute("editUser", userService.getUserById(id));
+        model.addAttribute("listRole", roleService.listRoles());
         return "user-edit-form";
     }
 
     @PostMapping("/edit/{id}")
     public String updateUser(@ModelAttribute("editUser") User user,
                              @RequestParam(value = "newRole", required = false) String[] role) {
-        Set<Role> roleSet = new HashSet<>();
-        for (int i = 0; i < role.length; i++) {
-            roleSet.add(roleService.getRoleByName(role[i]));
-        }
-        user.setRoles(roleSet);
+        user.setRoles(getAddRole(role));
         userService.updateUser(user);
         return "redirect:/admin";
     }
@@ -69,5 +63,13 @@ public class AdminController {
     public String deleteUser(@PathVariable("id") long id) {
         userService.removeUser(id);
         return "redirect:/admin";
+    }
+
+    private Set<Role> getAddRole(String [] role) {
+        Set<Role> roleSet = new HashSet<>();
+        for (int i = 0; i < role.length; i++) {
+            roleSet.add(roleService.getRoleByName(role[i]));
+        }
+        return roleSet;
     }
 }

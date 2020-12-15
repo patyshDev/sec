@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.snakesnake.crudapp.dao.RoleDao;
 import ru.snakesnake.crudapp.model.Role;
 
+import java.util.List;
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -17,5 +19,11 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     public Role getRoleByName(String name) {
         return roleDao.getRoleByName(name);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Role> listRoles() {
+        return roleDao.listRoles();
     }
 }

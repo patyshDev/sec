@@ -34,5 +34,4 @@ public class UserController {
         model.addAttribute("oneUser", userService.getUserByUsername(principal.getName()));
         return "show-me";
     }
-
 }

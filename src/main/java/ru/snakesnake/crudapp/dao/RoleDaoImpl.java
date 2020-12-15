@@ -5,6 +5,8 @@ import ru.snakesnake.crudapp.model.Role;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
@@ -19,5 +21,11 @@ public class RoleDaoImpl implements RoleDao {
                 .setParameter(1, name)
                 .getSingleResult();
 
+    }
+
+    @Override
+    public List<Role> listRoles() {
+        Query query = entityManager.createQuery("from Role");
+        return query.getResultList();
     }
 }
